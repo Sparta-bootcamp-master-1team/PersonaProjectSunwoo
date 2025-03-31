@@ -16,6 +16,14 @@ class DataService {
     }
     
     func loadBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
+        // 에러처리 확인을 위한 잘못된 경로 설정
+//        let forceError = true
+//        
+//        if forceError {
+//            completion(.failure(DataError.fileNotFound))
+//            return
+//        }
+        
         guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {
             completion(.failure(DataError.fileNotFound))
             return
