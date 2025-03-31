@@ -42,6 +42,7 @@ class SeriesHeaderView: UIView {
         [seriesTitleLabel, seriesNumberButton].forEach { self.addSubview($0) }
         
         seriesTitleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
         }
@@ -51,6 +52,7 @@ class SeriesHeaderView: UIView {
             $0.trailing.lessThanOrEqualToSuperview().offset(-20)
             $0.top.equalTo(seriesTitleLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-10)
         }
     }
     
