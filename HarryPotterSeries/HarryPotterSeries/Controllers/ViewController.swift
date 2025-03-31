@@ -12,6 +12,7 @@ import SnapKit
 class ViewController: UIViewController {
     private let dataService = DataService()
     private let seriesHeaderView = SeriesHeaderView()
+    private let seriesInformationView = SeriesInformationView()
     
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
                 guard let firstBook = books.first else { return }
                 DispatchQueue.main.async {
                     self.seriesHeaderView.configure(seriesTitle: firstBook.title, seriesNumber: 1)
+                    self.seriesInformationView.configure(coverImage: "harrypotter1", seriesTitle: firstBook.title, authorName: firstBook.author, releasedDate: firstBook.releaseDate, totalPages: firstBook.pages)
                 }
                 
             case .failure(let error):
@@ -40,11 +42,17 @@ class ViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(seriesHeaderView)
+        [seriesHeaderView, seriesInformationView].forEach { view.addSubview($0) }
         
         seriesHeaderView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.trailing.equalToSuperview()
+        }
+        
+        seriesInformationView.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(5)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            $0.top.equalTo(seriesHeaderView.snp.bottom).offset(10)
         }
     }
 }
