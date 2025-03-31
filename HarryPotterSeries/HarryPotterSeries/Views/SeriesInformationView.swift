@@ -132,7 +132,7 @@ class SeriesInformationView: UIView {
         
         seriesInfoStackView.snp.makeConstraints {
             $0.leading.trailing.top.equalToSuperview()
-            $0.bottom.lessThanOrEqualToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     
