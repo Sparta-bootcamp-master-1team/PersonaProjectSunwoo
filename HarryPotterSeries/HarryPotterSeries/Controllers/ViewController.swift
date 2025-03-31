@@ -20,7 +20,7 @@ class ViewController: UIViewController {
             
             DispatchQueue.main.async {
                 switch result {
-                case .success(let books):
+                case .success(let books): // 우선 시리즈 1
                     guard let firstBook = books.first else { return }
                     
                         self.seriesHeaderView.configure(seriesTitle: firstBook.title, seriesNumber: 1)

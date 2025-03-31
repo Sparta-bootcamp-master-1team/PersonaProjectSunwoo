@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class SeriesInformationView: UIView {
-    
+    // pages
     private let pagesLabel: UILabel = {
         let label = UILabel()
         label.text = "Pages"
@@ -32,6 +32,7 @@ class SeriesInformationView: UIView {
         return stackView
     }()
     
+    // released
     private let releasedLabel: UILabel = {
         let label = UILabel()
         label.text = "Released"
@@ -55,6 +56,7 @@ class SeriesInformationView: UIView {
         return stackView
     }()
     
+    // author
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.text = "Author"
@@ -77,6 +79,7 @@ class SeriesInformationView: UIView {
         return stackView
     }()
     
+    // 정보칸 시리즈 제목
     private let seriesInfoTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -85,6 +88,7 @@ class SeriesInformationView: UIView {
         return label
     }()
     
+    // 이미지 제외 글자들 stackView
     private lazy var wordsInfoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [seriesInfoTitleLabel, authorStackView, releasedStackView, pagesStackView])
         stackView.axis = .vertical
@@ -93,12 +97,14 @@ class SeriesInformationView: UIView {
         return stackView
     }()
     
+    // 북커버 이미지
     private let seriesCoverImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
+    // 이미지 포함 정보칸 stackView
     private lazy var seriesInfoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [seriesCoverImage, wordsInfoStackView])
         stackView.axis = .horizontal
@@ -130,11 +136,25 @@ class SeriesInformationView: UIView {
         }
     }
     
+    // 날짜 표시 변환 함수
+    private func formatDate(_ dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let date = dateFormatter.date(from: dateString) else {
+            return dateString
+        }
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        
+        return dateFormatter.string(from: date)
+    }
+    
     func configure(coverImage: String, seriesTitle: String, authorName: String, releasedDate: String, totalPages: Int) {
         seriesCoverImage.image = UIImage(named: coverImage)
         seriesInfoTitleLabel.text = seriesTitle
         authorInfoLabel.text = authorName
-        releasedInfoLabel.text = releasedDate
+        releasedInfoLabel.text = formatDate(releasedDate)
         pagesInfoLabel.text = "\(totalPages)"
     }
 }
