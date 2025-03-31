@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     private let dataService = DataService()
     private let seriesHeaderView = SeriesHeaderView()
     private let seriesInformationView = SeriesInformationView()
+    private let seriesIntroduceView = SeriesIntroduceView()
     
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
@@ -23,8 +24,9 @@ class ViewController: UIViewController {
                 case .success(let books): // 우선 시리즈 1
                     guard let firstBook = books.first else { return }
                     
-                        self.seriesHeaderView.configure(seriesTitle: firstBook.title, seriesNumber: 1)
-                        self.seriesInformationView.configure(coverImage: "harrypotter1", seriesTitle: firstBook.title, authorName: firstBook.author, releasedDate: firstBook.releaseDate, totalPages: firstBook.pages)
+                    self.seriesHeaderView.configure(seriesTitle: firstBook.title, seriesNumber: 1)
+                    self.seriesInformationView.configure(coverImage: "harrypotter1", seriesTitle: firstBook.title, authorName: firstBook.author, releasedDate: firstBook.releaseDate, totalPages: firstBook.pages)
+                    self.seriesIntroduceView.configure(dedicationString: firstBook.dedication, summaryString: firstBook.summary)
                     
                 case .failure(let error):
                     // alert창으로 에러처리 구현
@@ -46,7 +48,7 @@ class ViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        [seriesHeaderView, seriesInformationView].forEach { view.addSubview($0) }
+        [seriesHeaderView, seriesInformationView, seriesIntroduceView].forEach { view.addSubview($0) }
         
         seriesHeaderView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -54,9 +56,15 @@ class ViewController: UIViewController {
         }
         
         seriesInformationView.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(5)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             $0.top.equalTo(seriesHeaderView.snp.bottom).offset(10)
+        }
+        
+        seriesIntroduceView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.top.equalTo(seriesInformationView.snp.bottom).offset(24)
         }
     }
 }
