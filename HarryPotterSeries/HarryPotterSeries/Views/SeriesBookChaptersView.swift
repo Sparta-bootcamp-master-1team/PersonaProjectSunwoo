@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class SeriesBookChaptersView: UIView {
+    // Chapters
     private let chaptersLabel: UILabel = {
         let label = UILabel()
         label.text = "Chapters"
@@ -17,6 +18,7 @@ class SeriesBookChaptersView: UIView {
         return label
     }()
     
+    // Chapters 값들을 담을 stackView
     private lazy var chaptersInfoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,6 +26,7 @@ class SeriesBookChaptersView: UIView {
         return stackView
     }()
     
+    // Chapters, chaptersStackView를 담을 stackView
     private lazy var seriesBookChaptersStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [chaptersLabel, chaptersInfoStackView])
         stackView.axis = .vertical
@@ -49,7 +52,10 @@ class SeriesBookChaptersView: UIView {
         }
     }
     
-    func configure(chaptersString: [String]) {        
+    func configure(chaptersString: [String]) {
+        // 초기화
+        chaptersInfoStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
         for chapter in chaptersString {
             let chpLabel = UILabel()
             chpLabel.text = chapter

@@ -16,12 +16,14 @@ class ViewController: UIViewController {
     private let seriesIntroduceView = SeriesIntroduceView()
     private let seriesBookChaptersView = SeriesBookChaptersView()
     
+    // ScrollView
     private let seriesScollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
+    // ScrollView를 사용하기 위한 contentView
     private let contentView = UIView()
     
     func loadBooks() {
@@ -57,6 +59,7 @@ class ViewController: UIViewController {
     }
     
     private func setupUI() {
+        // ScrollView 안에 contentView(UIView) 안에 subViews 구조
         [seriesHeaderView, seriesScollView].forEach{ view.addSubview($0) }
         seriesScollView.addSubview(contentView)
         [seriesInformationView, seriesIntroduceView, seriesBookChaptersView].forEach { contentView.addSubview($0) }
