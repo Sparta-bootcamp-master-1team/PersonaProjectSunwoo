@@ -64,6 +64,7 @@ class SeriesIntroduceView: UIView {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.addTarget(self, action: #selector(toggleSummary), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
@@ -132,6 +133,7 @@ class SeriesIntroduceView: UIView {
             }
         } else { // 450자 이하일 경우
             summaryInfoLabel.text = originalSummaryText
+            toggleButton.isHidden = true
         }
     }
     
@@ -139,6 +141,8 @@ class SeriesIntroduceView: UIView {
         dedicationInfoLabel.text = dedicationString
         originalSummaryText = summaryString
         
+        // 글자 수에 따라 toggleButton 표시 유무
+        toggleButton.isHidden = summaryString.count <= 450
         updateSummaryText()
     }
 }
