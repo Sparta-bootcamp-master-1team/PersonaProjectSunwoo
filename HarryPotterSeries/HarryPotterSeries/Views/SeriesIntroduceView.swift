@@ -79,7 +79,7 @@ class SeriesIntroduceView: UIView {
         
         seriesIntroduceStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
         }
     }
     
