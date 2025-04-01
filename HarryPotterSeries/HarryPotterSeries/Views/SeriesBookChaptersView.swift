@@ -49,14 +49,14 @@ class SeriesBookChaptersView: UIView {
         }
     }
     
-    func configure(chaptersString: [String]) {
+    func configure(chaptersString: [String]) {        
         for chapter in chaptersString {
             let chpLabel = UILabel()
             chpLabel.text = chapter
             chpLabel.textColor = .darkGray
             chpLabel.font = .systemFont(ofSize: 14)
             
-            seriesBookChaptersStackView.addArrangedSubview(chpLabel)
+            chaptersInfoStackView.addArrangedSubview(chpLabel)
         }
     }
 }
