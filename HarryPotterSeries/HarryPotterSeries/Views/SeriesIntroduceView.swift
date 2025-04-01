@@ -57,6 +57,16 @@ class SeriesIntroduceView: UIView {
         return stackView
     }()
     
+    // toggleButton
+    private let toggleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더 보기", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        
+        return button
+    }()
+    
     // Dedication + Summary StackView
     private lazy var seriesIntroduceStackView = {
         let stackView = UIStackView(arrangedSubviews: [dedicationStackView, summaryStackView])
@@ -81,10 +91,20 @@ class SeriesIntroduceView: UIView {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
         }
+        
+        self.addSubview(toggleButton)
+        
+        toggleButton.snp.makeConstraints {
+            $0.top.equalTo(seriesIntroduceStackView.snp.bottom)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview()
+        }
     }
     
     func configure(dedicationString: String, summaryString: String) {
         dedicationInfoLabel.text = dedicationString
         summaryInfoLabel.text = summaryString
     }
+    
+    
 }
