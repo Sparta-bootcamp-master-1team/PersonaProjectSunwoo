@@ -68,7 +68,13 @@ class SeriesIntroduceView: UIView {
     }()
     
     // 펼쳐진 or 접힌 상태인지 값 저장
-    private var isExpanded: Bool = false
+    private var isExpanded: Bool = false {
+        didSet {
+            // isExpanded의 상태를 저장하기 위함
+            UserDefaults.standard.set(isExpanded, forKey: "SummaryExpandedState")
+            updateSummaryText()
+        }
+    }
     
     // Dedication + Summary StackView
     private lazy var seriesIntroduceStackView = {
@@ -81,6 +87,9 @@ class SeriesIntroduceView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        
+        // 저장된 상태를 불러옴
+        isExpanded = UserDefaults.standard.bool(forKey: "SummaryExpandedState")
     }
     
     required init?(coder: NSCoder) {
@@ -121,6 +130,8 @@ class SeriesIntroduceView: UIView {
                 summaryInfoLabel.text = reduceSummaryText
                 toggleButton.setTitle("더 보기", for: .normal)
             }
+        } else { // 450자 이하일 경우
+            summaryInfoLabel.text = originalSummaryText
         }
     }
     
