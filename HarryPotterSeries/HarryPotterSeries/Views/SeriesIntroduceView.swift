@@ -63,9 +63,12 @@ class SeriesIntroduceView: UIView {
         button.setTitle("더 보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        
+        button.addTarget(self, action: #selector(toggleSummary), for: .touchUpInside)
         return button
     }()
+    
+    // 펼쳐진 or 접힌 상태인지 값 저장
+    private var isExpanded: Bool = false
     
     // Dedication + Summary StackView
     private lazy var seriesIntroduceStackView = {
@@ -85,26 +88,46 @@ class SeriesIntroduceView: UIView {
     }
     
     private func setupUI() {
-        self.addSubview(seriesIntroduceStackView)
+        [seriesIntroduceStackView, toggleButton].forEach {
+            self.addSubview($0)
+        }
         
         seriesIntroduceStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.top.equalToSuperview()
         }
         
-        self.addSubview(toggleButton)
-        
         toggleButton.snp.makeConstraints {
-            $0.top.equalTo(seriesIntroduceStackView.snp.bottom)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.bottom.equalToSuperview()
+            $0.top.equalTo(summaryStackView.snp.bottom)
+            $0.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    // summaryInfoLabel의 원본 저장
+    private var originalSummaryText: String = ""
+    
+    // summary가 펼쳐진 or 접힌 상태인지
+    @objc private func toggleSummary() {
+        isExpanded.toggle()
+    }
+    
+    private func updateSummaryText() {
+        if originalSummaryText.count > 450 {
+            if isExpanded { // 펼쳐진 상태
+                summaryInfoLabel.text = originalSummaryText
+                toggleButton.setTitle("접기", for: .normal)
+            } else { // 접힌 상태
+                let reduceSummaryText = String(originalSummaryText.prefix(450)) + "..."
+                summaryInfoLabel.text = reduceSummaryText
+                toggleButton.setTitle("더 보기", for: .normal)
+            }
         }
     }
     
     func configure(dedicationString: String, summaryString: String) {
         dedicationInfoLabel.text = dedicationString
-        summaryInfoLabel.text = summaryString
+        originalSummaryText = summaryString
+        
+        updateSummaryText()
     }
-    
-    
 }
