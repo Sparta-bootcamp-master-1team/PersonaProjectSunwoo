@@ -79,8 +79,7 @@ class ViewController: UIViewController {
         seriesInformationView.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            $0.top.equalTo(seriesHeaderView.snp.bottom).offset(10)
-//            $0.top.equalToSuperview().offset(10)
+            $0.top.equalToSuperview().offset(10)
         }
         
         seriesIntroduceView.snp.makeConstraints {
