@@ -41,6 +41,9 @@ class SeriesHeaderView: UIView {
         return stackView
     }()
     
+    // 현재 선택된 버튼의 인덱스 (초기값은 첫번째)
+    private var selectedIndex: Int = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -63,7 +66,20 @@ class SeriesHeaderView: UIView {
     }
     
     @objc private func seriesButtonTapped (_ sender: UIButton) {
+        // 선택된 인덱스 업데이트
+        selectedIndex = sender.tag
+        // delegate 호출
         delegate?.didSelectSeries(sender.tag)
+    }
+    
+    // 버튼의 상태를 업데이트
+    func updateButtonSelection(selectedIndex: Int) {
+        seriesButtonStackView.arrangedSubviews.enumerated().forEach { index, view in
+            guard let button = view as? UIButton else { return }
+            let isSelected = index == selectedIndex
+            button.backgroundColor = isSelected ? .systemBlue : .lightGray
+            button.setTitleColor(isSelected ? .white : .darkGray, for: .normal)
+        }
     }
     
     func configure(seriesTitle: String, seriesNumber: Int) {
@@ -74,18 +90,18 @@ class SeriesHeaderView: UIView {
         
         // 버튼의 0부터 7의 시리즈 값을 반복문으로 처리
         for number in 0..<seriesNumber {
-            let numberButton = UIButton()
-            numberButton.tag = number
-            numberButton.setTitle("\(number + 1)", for: .normal)
-            numberButton.titleLabel?.font = .systemFont(ofSize: 16)
-            numberButton.layer.cornerRadius = 15
-            numberButton.clipsToBounds = true
-            numberButton.backgroundColor = number == 0 ? .systemBlue : .lightGray
-            numberButton.setTitleColor(number == 0 ? .white : .darkGray, for: .normal)
-            numberButton.addTarget(self, action: #selector(seriesButtonTapped), for: .touchUpInside)
+            let button = UIButton()
+            button.tag = number
+            button.setTitle("\(number + 1)", for: .normal)
+            button.titleLabel?.font = .systemFont(ofSize: 16)
+            button.layer.cornerRadius = 15
+            button.clipsToBounds = true
+            button.backgroundColor = number == selectedIndex ? .systemBlue : .lightGray
+            button.setTitleColor(number == selectedIndex ? .white : .darkGray, for: .normal)
+            button.addTarget(self, action: #selector(seriesButtonTapped), for: .touchUpInside)
             
-            seriesButtonStackView.addArrangedSubview(numberButton)
+            seriesButtonStackView.addArrangedSubview(button)
         }
     }
-
+    
 }

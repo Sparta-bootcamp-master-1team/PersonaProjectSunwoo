@@ -64,6 +64,10 @@ class ViewController: UIViewController {
     // configure를 모아놓은 함수
     private func updateUI(index: Int) {
         let book = books[index]
+        
+        // seriesHeaderView의 버튼 선택 상태를 업데이트함
+        seriesHeaderView.updateButtonSelection(selectedIndex: index)
+        
         seriesHeaderView.configure(seriesTitle: book.title, seriesNumber: books.count)
         seriesInformationView.configure(coverImage: "harrypotter\(index + 1)", seriesTitle: book.title, authorName: book.author, releasedDate: book.releaseDate, totalPages: book.pages)
         seriesIntroduceView.configure(dedicationString: book.dedication, summaryString: book.summary)
