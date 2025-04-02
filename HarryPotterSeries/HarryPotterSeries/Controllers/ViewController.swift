@@ -44,8 +44,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let books):
-                    self.books = books.sorted(by: { $0.releaseDate < $1.releaseDate
-                    })
+                    self.books = books.sorted(by: { $0.releaseDate < $1.releaseDate })
                     self.setupInitialUI()
                     
                 case .failure(let error):
