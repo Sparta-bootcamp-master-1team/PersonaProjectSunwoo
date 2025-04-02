@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+// 상태 관리 구조체 
 struct ExpansionState {
     static func isExpanded(index: Int) -> Bool {
         UserDefaults.standard.bool(forKey: "series\(index)")
@@ -151,9 +152,10 @@ class SeriesIntroduceView: UIView {
     }
     
     func configure(dedicationString: String, summaryString: String, bookIndex: Int) {
-        self.bookIndex = bookIndex
         dedicationInfoLabel.text = dedicationString
         originalSummaryText = summaryString
+        
+        self.bookIndex = bookIndex
         isExpanded = ExpansionState.isExpanded(index: bookIndex) // 저장된 상태
         
         // 글자 수에 따라 toggleButton 표시 유무
