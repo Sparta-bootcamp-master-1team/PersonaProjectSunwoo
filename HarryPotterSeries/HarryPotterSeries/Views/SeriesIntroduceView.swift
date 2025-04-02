@@ -8,6 +8,17 @@
 import UIKit
 import SnapKit
 
+// 상태 관리 구조체 
+struct ExpansionState {
+    static func isExpanded(index: Int) -> Bool {
+        UserDefaults.standard.bool(forKey: "series\(index)")
+    }
+    
+    static func setExpanded(value: Bool, index: Int) {
+        UserDefaults.standard.set(value, forKey: "series\(index)")
+    }
+}
+
 class SeriesIntroduceView: UIView {
     // Dedication
     private let dedicationLabel: UILabel = {
@@ -67,11 +78,13 @@ class SeriesIntroduceView: UIView {
         return button
     }()
     
+    private var bookIndex: Int = 0
+    
     // 펼쳐진 or 접힌 상태인지 값 저장
     private var isExpanded: Bool = false {
         didSet {
             // isExpanded의 상태를 저장하기 위함
-            UserDefaults.standard.set(isExpanded, forKey: "SummaryExpandedState")
+            ExpansionState.setExpanded(value: isExpanded, index: bookIndex)
             updateSummaryText()
         }
     }
@@ -138,9 +151,12 @@ class SeriesIntroduceView: UIView {
         }
     }
     
-    func configure(dedicationString: String, summaryString: String) {
+    func configure(dedicationString: String, summaryString: String, bookIndex: Int) {
         dedicationInfoLabel.text = dedicationString
         originalSummaryText = summaryString
+        
+        self.bookIndex = bookIndex
+        isExpanded = ExpansionState.isExpanded(index: bookIndex) // 저장된 상태
         
         // 글자 수에 따라 toggleButton 표시 유무
         toggleButton.isHidden = summaryString.count <= 450
