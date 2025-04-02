@@ -28,7 +28,7 @@ class SeriesHeaderView: UIView {
     private lazy var seriesButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = 10
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -68,6 +68,9 @@ class SeriesHeaderView: UIView {
     
     func configure(seriesTitle: String, seriesNumber: Int) {
         seriesTitleLabel.text = seriesTitle
+        
+        // 기존 버튼을 초기화 (삭제)
+        seriesButtonStackView.arrangedSubviews.forEach {  $0.removeFromSuperview() }
         
         // 버튼의 0부터 7의 시리즈 값을 반복문으로 처리
         for number in 0..<seriesNumber {

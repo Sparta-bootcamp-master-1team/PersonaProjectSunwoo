@@ -64,7 +64,7 @@ class ViewController: UIViewController {
     // configure를 모아놓은 함수
     private func updateUI(index: Int) {
         let book = books[index]
-        seriesHeaderView.configure(seriesTitle: book.title, seriesNumber: index)
+        seriesHeaderView.configure(seriesTitle: book.title, seriesNumber: books.count)
         seriesInformationView.configure(coverImage: "harrypotter\(index + 1)", seriesTitle: book.title, authorName: book.author, releasedDate: book.releaseDate, totalPages: book.pages)
         seriesIntroduceView.configure(dedicationString: book.dedication, summaryString: book.summary)
         seriesBookChaptersView.configure(chaptersString: book.chapters.map { $0.title })
