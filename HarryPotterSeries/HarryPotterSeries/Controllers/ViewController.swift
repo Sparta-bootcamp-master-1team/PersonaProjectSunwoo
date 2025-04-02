@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         
         seriesHeaderView.configure(seriesTitle: book.title, seriesNumber: books.count)
         seriesInformationView.configure(coverImage: "harrypotter\(index + 1)", seriesTitle: book.title, authorName: book.author, releasedDate: book.releaseDate, totalPages: book.pages)
-        seriesIntroduceView.configure(dedicationString: book.dedication, summaryString: book.summary)
+        seriesIntroduceView.configure(dedicationString: book.dedication, summaryString: book.summary, bookIndex: index)
         seriesBookChaptersView.configure(chaptersString: book.chapters.map { $0.title })
     }
     

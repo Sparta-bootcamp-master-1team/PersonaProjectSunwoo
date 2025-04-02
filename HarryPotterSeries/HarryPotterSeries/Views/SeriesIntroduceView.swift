@@ -150,9 +150,11 @@ class SeriesIntroduceView: UIView {
         }
     }
     
-    func configure(dedicationString: String, summaryString: String) {
+    func configure(dedicationString: String, summaryString: String, bookIndex: Int) {
+        self.bookIndex = bookIndex
         dedicationInfoLabel.text = dedicationString
         originalSummaryText = summaryString
+        isExpanded = ExpansionState.isExpanded(index: bookIndex) // 저장된 상태
         
         // 글자 수에 따라 toggleButton 표시 유무
         toggleButton.isHidden = summaryString.count <= 450
