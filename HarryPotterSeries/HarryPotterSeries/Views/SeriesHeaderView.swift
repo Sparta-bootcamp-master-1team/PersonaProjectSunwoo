@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol SeriesHeaderDelegate: AnyObject {
+    func didSelectSeries(_ index: Int)
+}
+
 class SeriesHeaderView: UIView {
+    weak var delegate: SeriesHeaderDelegate?
+    
     private let seriesTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -18,6 +24,7 @@ class SeriesHeaderView: UIView {
         return label
     }()
     
+    // seriesButton을 stackView로 묶음
     private lazy var seriesButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -26,6 +33,7 @@ class SeriesHeaderView: UIView {
         return stackView
     }()
     
+    // seriesTitle, seriesHeaderStackView를 stackView로 묶음
     private lazy var seriesHeaderStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [seriesTitleLabel, seriesButtonStackView])
         stackView.axis = .vertical
@@ -54,17 +62,24 @@ class SeriesHeaderView: UIView {
         }
     }
     
+    @objc private func seriesButtonTapped (_ sender: UIButton) {
+        delegate?.didSelectSeries(sender.tag)
+    }
+    
     func configure(seriesTitle: String, seriesNumber: Int) {
         seriesTitleLabel.text = seriesTitle
         
+        // 버튼의 0부터 7의 시리즈 값을 반복문으로 처리
         for number in 0..<seriesNumber {
             let numberButton = UIButton()
+            numberButton.tag = number
             numberButton.setTitle("\(number + 1)", for: .normal)
             numberButton.titleLabel?.font = .systemFont(ofSize: 16)
             numberButton.layer.cornerRadius = 15
             numberButton.clipsToBounds = true
             numberButton.backgroundColor = number == 0 ? .systemBlue : .lightGray
             numberButton.setTitleColor(number == 0 ? .white : .darkGray, for: .normal)
+            numberButton.addTarget(self, action: #selector(seriesButtonTapped), for: .touchUpInside)
             
             seriesButtonStackView.addArrangedSubview(numberButton)
         }
