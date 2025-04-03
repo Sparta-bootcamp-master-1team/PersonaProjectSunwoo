@@ -88,17 +88,21 @@ class ViewController: UIViewController {
         
         seriesHeaderView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
         }
         
         seriesScollView.snp.makeConstraints {
             $0.top.equalTo(seriesHeaderView.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalToSuperview()
         }
         
         contentView.snp.makeConstraints {
             $0.width.equalTo(seriesScollView.snp.width)
             $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
         
         seriesInformationView.snp.makeConstraints {
