@@ -99,6 +99,7 @@ class ViewController: UIViewController {
         contentView.snp.makeConstraints {
             $0.width.equalTo(seriesScollView.snp.width)
             $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
         
         seriesInformationView.snp.makeConstraints {
