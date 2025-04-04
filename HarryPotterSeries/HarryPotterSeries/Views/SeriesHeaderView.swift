@@ -37,6 +37,7 @@ class SeriesHeaderView: UIView {
     private lazy var seriesHeaderStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [seriesTitleLabel, seriesButtonStackView])
         stackView.axis = .vertical
+        stackView.alignment = .center
         stackView.spacing = 16
         return stackView
     }()
@@ -58,7 +59,6 @@ class SeriesHeaderView: UIView {
         
         seriesHeaderStackView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-10)
         }
     }
@@ -82,7 +82,10 @@ class SeriesHeaderView: UIView {
             button.tag = number
             button.setTitle("\(number + 1)", for: .normal)
             button.titleLabel?.font = .systemFont(ofSize: 16)
-            button.layer.cornerRadius = 15
+            button.snp.makeConstraints {
+                $0.width.height.equalTo(40)
+            }
+            button.layer.cornerRadius = 20
             button.clipsToBounds = true
             button.backgroundColor = (number == selectedIndex) ? .systemBlue : .lightGray
             button.setTitleColor((number == selectedIndex) ? .white : .systemBlue, for: .normal)
