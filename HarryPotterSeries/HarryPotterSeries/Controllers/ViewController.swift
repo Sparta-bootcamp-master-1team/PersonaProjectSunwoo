@@ -91,8 +91,7 @@ class ViewController: UIViewController {
         
         seriesScollView.snp.makeConstraints {
             $0.top.equalTo(seriesHeaderView.snp.bottom)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
