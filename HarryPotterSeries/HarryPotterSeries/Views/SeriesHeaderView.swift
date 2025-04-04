@@ -70,16 +70,6 @@ class SeriesHeaderView: UIView {
         delegate?.didSelectSeries(sender.tag)
     }
     
-    // 버튼의 상태를 업데이트
-    func updateButtonSelection(selectedIndex: Int) {
-        seriesButtonStackView.arrangedSubviews.enumerated().forEach { index, view in
-            guard let button = view as? UIButton else { return }
-            let isSelected = index == selectedIndex
-            button.backgroundColor = isSelected ? .systemBlue : .lightGray
-            button.setTitleColor(isSelected ? .white : .darkGray, for: .normal)
-        }
-    }
-    
     func configure(seriesTitle: String, seriesNumber: Int) {
         seriesTitleLabel.text = seriesTitle
         
@@ -94,8 +84,8 @@ class SeriesHeaderView: UIView {
             button.titleLabel?.font = .systemFont(ofSize: 16)
             button.layer.cornerRadius = 15
             button.clipsToBounds = true
-            button.backgroundColor = number == selectedIndex ? .systemBlue : .lightGray
-            button.setTitleColor(number == selectedIndex ? .white : .darkGray, for: .normal)
+            button.backgroundColor = (number == selectedIndex) ? .systemBlue : .lightGray
+            button.setTitleColor((number == selectedIndex) ? .white : .systemBlue, for: .normal)
             button.addTarget(self, action: #selector(seriesButtonTapped), for: .touchUpInside)
             
             seriesButtonStackView.addArrangedSubview(button)
