@@ -109,15 +109,15 @@ class ViewController: UIViewController {
         }
         
         seriesIntroduceView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             $0.top.equalTo(seriesInformationView.snp.bottom).offset(24)
         }
         
         seriesBookChaptersView.snp.makeConstraints {
             $0.top.equalTo(seriesIntroduceView.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             $0.bottom.equalToSuperview()
         }
     }

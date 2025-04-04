@@ -131,8 +131,7 @@ class SeriesInformationView: UIView {
         }
         
         seriesInfoStackView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.top.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
     
