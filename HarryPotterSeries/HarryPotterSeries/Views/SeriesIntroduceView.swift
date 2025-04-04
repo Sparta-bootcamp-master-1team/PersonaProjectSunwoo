@@ -69,11 +69,12 @@ class SeriesIntroduceView: UIView {
     }()
     
     // toggleButton
-    private let toggleButton: UIButton = {
+    private lazy var toggleButton: UIButton = {
         let button = UIButton()
         button.setTitle("더 보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(toggleSummary), for: .touchUpInside)
         button.isHidden = true
         return button
     }()
@@ -123,8 +124,6 @@ class SeriesIntroduceView: UIView {
             $0.top.equalTo(summaryStackView.snp.bottom)
             $0.trailing.bottom.equalToSuperview()
         }
-        
-        toggleButton.addTarget(self, action: #selector(toggleSummary), for: .touchUpInside)
     }
     
     // summaryInfoLabel의 원본 저장
