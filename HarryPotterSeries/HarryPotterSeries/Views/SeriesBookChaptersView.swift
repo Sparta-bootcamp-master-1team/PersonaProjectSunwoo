@@ -47,8 +47,7 @@ class SeriesBookChaptersView: UIView {
         self.addSubview(seriesBookChaptersStackView)
         
         seriesBookChaptersStackView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
     

@@ -64,9 +64,6 @@ class ViewController: UIViewController {
     private func updateUI(index: Int) {
         let book = books[index]
         
-        // seriesHeaderView의 버튼 선택 상태를 업데이트함
-        seriesHeaderView.updateButtonSelection(selectedIndex: index)
-        
         seriesHeaderView.configure(seriesTitle: book.title, seriesNumber: books.count)
         seriesInformationView.configure(coverImage: "harrypotter\(index + 1)", seriesTitle: book.title, authorName: book.author, releasedDate: book.releaseDate, totalPages: book.pages)
         seriesIntroduceView.configure(dedicationString: book.dedication, summaryString: book.summary, bookIndex: index)
@@ -94,8 +91,7 @@ class ViewController: UIViewController {
         
         seriesScollView.snp.makeConstraints {
             $0.top.equalTo(seriesHeaderView.snp.bottom)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
@@ -112,15 +108,15 @@ class ViewController: UIViewController {
         }
         
         seriesIntroduceView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             $0.top.equalTo(seriesInformationView.snp.bottom).offset(24)
         }
         
         seriesBookChaptersView.snp.makeConstraints {
             $0.top.equalTo(seriesIntroduceView.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             $0.bottom.equalToSuperview()
         }
     }
